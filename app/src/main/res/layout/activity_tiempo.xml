@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@drawable/atardecer"
+    android:padding="16dp"
+    tools:context=".ApiTiempo.Tiempo">
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="320dp"
+        android:layout_height="54dp"
+        android:layout_gravity="center"
+        android:background="@drawable/fondoredondeadosemitransparente"
+        android:fontFamily="@font/baloo"
+        android:shadowColor="#000000"
+        android:shadowRadius="10"
+        android:shadowDx="2"
+        android:shadowDy="5"
+        android:text="TIEMPO EN HUELVA"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        android:textSize="35sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <TextView
+        android:id="@+id/temperatura"
+        android:layout_width="210dp"
+        android:layout_height="46dp"
+        android:layout_marginTop="48dp"
+        android:shadowColor="#000000"
+        android:shadowRadius="10"
+        android:shadowDx="2"
+        android:shadowDy="5"
+        android:fontFamily="@font/baloo"
+        android:textColor="@color/white"
+        android:textSize="35sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+    <ImageView
+        android:id="@+id/imagentiempo"
+        android:layout_width="112dp"
+        android:layout_height="118dp"
+        android:layout_marginTop="40dp"
+        android:fontFamily="@font/baloo"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.053"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+    <TextView
+        android:id="@+id/descripcion"
+        android:layout_width="210dp"
+        android:layout_height="80dp"
+        android:layout_marginTop="20dp"
+        android:shadowColor="#000000"
+        android:shadowRadius="10"
+        android:shadowDx="2"
+        android:shadowDy="5"
+        android:fontFamily="@font/baloo"
+        android:textColor="@color/white"
+        android:textSize="27sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/temperatura" />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        app:cardBackgroundColor="#95000000"
+        app:cardCornerRadius="15dp"
+        app:cardElevation="0dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.937"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/descripcion">
+
+        <TextView
+            android:id="@+id/sensacion"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="10dp"
+            android:fontFamily="@font/baloo"
+            android:shadowColor="#000000"
+            android:shadowDx="2"
+            android:shadowDy="5"
+            android:shadowRadius="10"
+            android:textColor="@color/white"
+            android:textSize="20dp" />
+
+        <TextView
+            android:id="@+id/viento"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="50dp"
+            android:fontFamily="@font/baloo"
+            android:shadowColor="#000000"
+            android:shadowDx="2"
+            android:shadowDy="5"
+            android:shadowRadius="10"
+            android:textColor="@color/white"
+            android:textSize="20dp" />
+
+        <TextView
+            android:id="@+id/presion"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="120dp"
+            android:fontFamily="@font/baloo"
+            android:shadowColor="#000000"
+            android:shadowDx="2"
+            android:shadowDy="5"
+            android:shadowRadius="10"
+            android:textColor="@color/white"
+            android:textSize="20dp" />
+
+        <TextView
+            android:id="@+id/humedad"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="160dp"
+            android:fontFamily="@font/baloo"
+            android:shadowColor="#000000"
+            android:shadowDx="2"
+            android:shadowDy="5"
+            android:shadowRadius="10"
+            android:textColor="@color/white"
+            android:textSize="20dp" />
+
+        <TextView
+            android:id="@+id/nubes"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="200dp"
+            android:layout_marginBottom="10dp"
+            android:fontFamily="@font/baloo"
+            android:shadowColor="#000000"
+            android:shadowDx="2"
+            android:shadowDy="5"
+            android:shadowRadius="10"
+            android:textColor="@color/white"
+            android:textSize="20dp" />
+
+    </androidx.cardview.widget.CardView>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

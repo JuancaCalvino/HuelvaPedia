@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+xmlns:tools="http://schemas.android.com/tools"
+android:layout_width="match_parent"
+android:layout_height="wrap_content"
+android:orientation="vertical">
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tenombre"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="0dp"
+            android:shadowColor="#000000"
+            android:shadowRadius="10"
+            android:shadowDx="2"
+            android:shadowDy="5"
+            android:background="#005fc5"
+            android:fontFamily="@font/baloo"
+            android:text="Nombre"
+            android:textAlignment="center"
+            android:textColor="#FFFFFF"
+            android:textSize="25sp"
+            android:textStyle="bold" />
+
+        <ImageView
+            android:id="@+id/imagen"
+            android:layout_width="420dp"
+            android:layout_height="280dp"
+            android:paddingTop="0dp"
+            android:layout_marginRight="0dp"
+            />
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/fondoredondeado"
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="0dp"
+            app:cardCornerRadius="15dp"
+            app:cardElevation="0dp">
+
+            <TextView
+                android:id="@+id/tedescri"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:layout_marginRight="0dp"
+                android:layout_marginBottom="15dp"
+                android:fontFamily="@font/baloo"
+                android:text="Descripcion"
+                android:textAlignment="center"
+                android:textColor="@color/purple_500"
+                android:textSize="18sp" />
+
+        </androidx.cardview.widget.CardView>
+
+        <Button
+            android:id="@+id/botonubi"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:layout_marginTop="10dp"
+            android:backgroundTint="@color/purple_500"
+            android:backgroundTintMode="add"
+            android:fontFamily="@font/baloo"
+            android:shadowColor="#000000"
+            android:shadowDx="2"
+            android:shadowDy="5"
+            android:shadowRadius="10"
+            android:text="Ver ubicación"
+            android:textAlignment="center"
+            android:textSize="17dp"
+            app:cornerRadius="20dp"
+            app:icon="@android:drawable/ic_dialog_map"
+            app:strokeColor="#FFFFFF"
+            app:strokeWidth="2dp" />
+
+        <Button
+            android:id="@+id/botonllamar"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:layout_marginTop="10dp"
+            android:backgroundTint="@color/purple_500"
+            android:fontFamily="@font/baloo"
+            android:shadowColor="#000000"
+            android:shadowDx="2"
+            android:shadowDy="5"
+            android:shadowRadius="10"
+            android:text="Llamar"
+            android:textSize="17dp"
+            app:cornerRadius="20dp"
+            app:icon="@android:drawable/stat_sys_phone_call"
+            app:strokeColor="#FFFFFF"
+            app:strokeWidth="2dp" />
+
+        <Button
+            android:id="@+id/botonwiki"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:layout_marginTop="10dp"
+            android:backgroundTint="@color/purple_500"
+            android:fontFamily="@font/baloo"
+            android:shadowColor="#000000"
+            android:shadowDx="2"
+            android:shadowDy="5"
+            android:shadowRadius="10"
+            android:text="Ver fauna"
+            android:textSize="17dp"
+            app:cornerRadius="20dp"
+            app:icon="@android:drawable/ic_dialog_info"
+            app:strokeColor="#FFFFFF"
+            app:strokeWidth="2dp" />
+
+    </LinearLayout>
+
+</LinearLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_below="@+id/imagen"
+        android:layout_marginTop="11dp"
+        android:background="#00FFFFFF"
+        android:textColor="#00FFFFFF" />
+
+</LinearLayout>
