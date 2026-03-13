@@ -1,4 +1,4 @@
-# HuelvaPedia 🌍 🌴
+# HuelvaPedia
 
 An informative Android application acting as a digital encyclopedia for the province and city of Huelva, Spain.
 
