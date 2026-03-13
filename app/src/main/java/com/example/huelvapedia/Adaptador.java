@@ -13,28 +13,27 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.android.gms.common.server.converter.StringToIntConverter;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
 public class Adaptador extends RecyclerView.Adapter<Adaptador.MiViewHolder> implements View.OnClickListener
 {
-    Context context;
-    ArrayList<Elementos> elementos; //Arraylist que almacena los elementos que serán mostrados
+    private Context context;
+    private ArrayList<Elementos> elementos;
     private View.OnClickListener listener;
 
-    public Adaptador(Context c, ArrayList<Elementos> e)
+    public Adaptador(Context context, ArrayList<Elementos> elementos)
     {
-        context = c;
-        elementos = e; //Se declara el ArrayList de elementos en el adapatador
+        this.context = context;
+        this.elementos = elementos;
     }
 
     @NonNull
     @Override
     public MiViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType)
     {
-       View view = LayoutInflater.from(context).inflate(R.layout.principal,parent,false);
+       View view = LayoutInflater.from(context).inflate(R.layout.principal, parent, false);
        view.setOnClickListener(this);
        return new MiViewHolder(view);
     }
@@ -42,131 +41,74 @@ public class Adaptador extends RecyclerView.Adapter<Adaptador.MiViewHolder> impl
     @Override
     public void onBindViewHolder(@NonNull MiViewHolder holder, int position)
     {
-        holder.nombre.setText(elementos.get(position).getNombre());                 //Se pone el nombre del tema actual en el TextView
-        holder.descripcion.setText(elementos.get(position).getDescripcion());       //Se pone la descripción del tema actual en el TextView
-        Picasso.get().load(elementos.get(position).getFoto()).into(holder.imagen);  //Se pone la imagen del tema actual en el ImageView, para ello se hace uso de la librería picasso
+        Elementos elemento = elementos.get(position);
 
-        if (elementos.get(position).getUltimo() == false) //Si no es el ultimo solo debe abrirse y ocultar botones
+        holder.nombre.setText(elemento.getNombre());
+        holder.descripcion.setText(elemento.getDescripcion());
+        Picasso.get().load(elemento.getFoto()).into(holder.imagen);
+
+        boolean tieneUbicacion = elemento.getUbicacion1() != null && elemento.getUbicacion2() != null;
+        boolean tieneTelefono = elemento.getTelefono() != null;
+        boolean tieneEnlace = elemento.getEnlace() != null;
+
+        if (!elemento.getUltimo()) // Si no es el último, se navega a la Activity Secundaria
         {
-            if((elementos.get(position).getUbicacion1() == null) && (elementos.get(position).getUbicacion2() == null) && (elementos.get(position).getTelefono() == null) && (elementos.get(position).getEnlace() == null)) //Si no se puede ni llamar ni ver mapa ni ver enlace
-            {
-                //Se ocultan los botones de ubicación, teléfono y enlace
-                holder.boton.setVisibility(View.GONE);
-                holder.boton1.setVisibility(View.GONE);
-                holder.boton2.setVisibility(View.GONE);
+            holder.botonUbicacion.setVisibility(View.GONE);
+            holder.botonLlamar.setVisibility(View.GONE);
+            holder.botonEnlace.setVisibility(View.GONE);
 
-                holder.itemView.setOnClickListener(new View.OnClickListener()
-                {
-                    @Override
-                    public void onClick(View v) //Envío a la segunda actividad "Secundaria" el nombre para poder buscar su referencia en la que se haga click
-                    {
-                        Intent intent = new Intent(v.getContext(),Secundaria.class);
-                        intent.putExtra("Nombre", elementos.get(position).getNombre());
-                        v.getContext().startActivity(intent);
-                    }
+            if (!tieneUbicacion && !tieneTelefono && !tieneEnlace)
+            {
+                holder.itemView.setOnClickListener(v -> {
+                    Intent intent = new Intent(v.getContext(), Secundaria.class);
+                    intent.putExtra("Nombre", elemento.getNombre());
+                    v.getContext().startActivity(intent);
                 });
             }
         }
-        else //Si es el ultimo elemento solo debe dejar pulsar botones
+        else // Es el último elemento, solo permite pulsar botones de acción
         {
-            if((elementos.get(position).getUbicacion1() == null) && (elementos.get(position).getUbicacion2() == null) && (elementos.get(position).getTelefono() == null) && (elementos.get(position).getEnlace() == null)) //Si no se puede ni llamar ni ver mapa ni ver el enlace
+            // Botón de ubicación (mapa)
+            if (tieneUbicacion)
             {
-                //Se ocultan los botones de ubicación, teléfono y enlace
-                holder.boton.setVisibility(View.GONE);
-                holder.boton1.setVisibility(View.GONE);
-                holder.boton2.setVisibility(View.GONE);
-            }
-            else if((elementos.get(position).getUbicacion1() != null) && (elementos.get(position).getUbicacion2() != null) && (elementos.get(position).getTelefono() == null) && (elementos.get(position).getEnlace() == null)) //Si solo se puede ver mapa
-            {
-                //Se ocultan los botones de teléfono y enlace
-                holder.boton1.setVisibility(View.GONE);
-                holder.boton2.setVisibility(View.GONE);
-
-                //Se abre el mapa en la aplicación de Google Maps con la ubicación con un intent gracias a las dos variables del ArrayList Elementos que almacenan la ubicación
-                holder.boton.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Intent in = new Intent(Intent.ACTION_VIEW);
-                        in.setData(Uri.parse(elementos.get(position).getUbicacion1() + Uri.encode(elementos.get(position).getUbicacion2())));
-                        Intent chooser = Intent.createChooser(in, "Launch Maps");
-                        v.getContext().startActivity(chooser);
-                    }
+                holder.botonUbicacion.setOnClickListener(v -> {
+                    Intent intent = new Intent(Intent.ACTION_VIEW);
+                    intent.setData(Uri.parse(elemento.getUbicacion1() + Uri.encode(elemento.getUbicacion2())));
+                    Intent chooser = Intent.createChooser(intent, "Launch Maps");
+                    v.getContext().startActivity(chooser);
                 });
             }
-            else if((elementos.get(position).getUbicacion1() == null) && (elementos.get(position).getUbicacion2() == null) && (elementos.get(position).getTelefono() != null) && (elementos.get(position).getEnlace() == null)) //Si solo se puede llamar
+            else
             {
-                //Se ocultan los botones de ubicación y enlace
-                holder.boton.setVisibility(View.GONE);
-                holder.boton2.setVisibility(View.GONE);
+                holder.botonUbicacion.setVisibility(View.GONE);
+            }
 
-                //Se abre la aplicación de teléfono con un intent con el número perteneciente al ArrayList ya marcado
-                holder.boton1.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Intent intent = new Intent(Intent.ACTION_DIAL);
-                        intent.setData(Uri.parse("tel:" + elementos.get(position).getTelefono()));
-                        v.getContext().startActivity(intent);
-                    }
+            // Botón de teléfono (llamar)
+            if (tieneTelefono)
+            {
+                holder.botonLlamar.setOnClickListener(v -> {
+                    Intent intent = new Intent(Intent.ACTION_DIAL);
+                    intent.setData(Uri.parse("tel:" + elemento.getTelefono()));
+                    v.getContext().startActivity(intent);
                 });
             }
-            else if((elementos.get(position).getUbicacion1() != null) && (elementos.get(position).getUbicacion2() != null) && (elementos.get(position).getTelefono() != null) && (elementos.get(position).getEnlace() == null)) //Si se puede llamar y ver mapa y pero no enlace
+            else
             {
-                //Se oculta el boton de enlace
-                holder.boton2.setVisibility(View.GONE);
+                holder.botonLlamar.setVisibility(View.GONE);
+            }
 
-                //Se abre el mapa en la aplicación de Google Maps con la ubicación con un intent gracias a las dos variables del ArrayList Elementos que almacenan la ubicación
-                holder.boton.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Intent in = new Intent(Intent.ACTION_VIEW);
-                        in.setData(Uri.parse(elementos.get(position).getUbicacion1() + Uri.encode(elementos.get(position).getUbicacion2())));
-                        Intent chooser = Intent.createChooser(in, "Launch Maps");
-                        v.getContext().startActivity(chooser);
-                    }
-                });
-
-                //Se abre la aplicación de teléfono con un intent con el número perteneciente al ArrayList ya marcado
-                holder.boton1.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Intent intent = new Intent(Intent.ACTION_DIAL);
-                        intent.setData(Uri.parse("tel:" + elementos.get(position).getTelefono()));
-                        v.getContext().startActivity(intent);
-                    }
+            // Botón de enlace (web)
+            if (tieneEnlace)
+            {
+                holder.botonEnlace.setOnClickListener(v -> {
+                    Uri link = Uri.parse(elemento.getEnlace());
+                    Intent intent = new Intent(Intent.ACTION_VIEW, link);
+                    v.getContext().startActivity(intent);
                 });
             }
-            else if((elementos.get(position).getUbicacion1() != null) && (elementos.get(position).getUbicacion2() != null) && (elementos.get(position).getTelefono() != null) && (elementos.get(position).getEnlace() != null)) //Si se puede llamar y ver mapa y ver enlace
+            else
             {
-                //Se abre el mapa en la aplicación de Google Maps con la ubicación con un intent gracias a las dos variables del ArrayList Elementos que almacenan la ubicación
-                holder.boton.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Intent in = new Intent(Intent.ACTION_VIEW);
-                        in.setData(Uri.parse(elementos.get(position).getUbicacion1() + Uri.encode(elementos.get(position).getUbicacion2())));
-                        Intent chooser = Intent.createChooser(in, "Launch Maps");
-                        v.getContext().startActivity(chooser);
-                    }
-                });
-
-                //Se abre la aplicación de teléfono con un intent con el número perteneciente al ArrayList ya marcado
-                holder.boton1.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Intent intent = new Intent(Intent.ACTION_DIAL);
-                        intent.setData(Uri.parse("tel:" + elementos.get(position).getTelefono()));
-                        v.getContext().startActivity(intent);
-                    }
-                });
-
-                //Se abre el enlace con un intent, usando el enlace del ArrayList Elementos
-                holder.boton2.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Uri link = Uri.parse(elementos.get(position).getEnlace());
-                        Intent intent = new Intent(Intent.ACTION_VIEW,link);
-                        v.getContext().startActivity(intent);
-                    }
-                });
+                holder.botonEnlace.setVisibility(View.GONE);
             }
         }
     }
@@ -184,29 +126,28 @@ public class Adaptador extends RecyclerView.Adapter<Adaptador.MiViewHolder> impl
 
     @Override
     public void onClick(View v) {
-        if(listener != null)
+        if (listener != null)
         {
             listener.onClick(v);
         }
     }
 
-    class MiViewHolder extends  RecyclerView.ViewHolder
+    static class MiViewHolder extends RecyclerView.ViewHolder
     {
         TextView nombre, descripcion;
         ImageView imagen;
-        Button boton, boton1, boton2;
+        Button botonUbicacion, botonLlamar, botonEnlace;
 
         public MiViewHolder(@NonNull View itemView)
         {
             super(itemView);
 
-            //Se asigna cada elemento de la interfaz
-            nombre = (TextView) itemView.findViewById(R.id.tenombre);
-            descripcion = (TextView) itemView.findViewById(R.id.tedescri);
-            imagen = (ImageView) itemView.findViewById(R.id.imagen);
-            boton = (Button) itemView.findViewById(R.id.botonubi);
-            boton1 = (Button) itemView.findViewById(R.id.botonllamar);
-            boton2 = (Button) itemView.findViewById(R.id.botonwiki);
+            nombre = itemView.findViewById(R.id.tenombre);
+            descripcion = itemView.findViewById(R.id.tedescri);
+            imagen = itemView.findViewById(R.id.imagen);
+            botonUbicacion = itemView.findViewById(R.id.botonubi);
+            botonLlamar = itemView.findViewById(R.id.botonllamar);
+            botonEnlace = itemView.findViewById(R.id.botonwiki);
         }
     }
 }
