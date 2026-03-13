@@ -1,10 +1,10 @@
 # HuelvaPedia
 
-An informative Android application acting as a digital encyclopedia for the province and city of Huelva, Spain.
+[![Platform](https://img.shields.io/badge/Platform-Android-3DDC84?style=flat&logo=android&logoColor=white)](https://developer.android.com/)
+[![Language](https://img.shields.io/badge/Language-Java-ED8B00?style=flat&logo=openjdk&logoColor=white)](https://docs.oracle.com/en/java/)
+[![Database](https://img.shields.io/badge/Database-Firebase-FFCA28?style=flat&logo=firebase&logoColor=black)](https://firebase.google.com/)
 
-[![Platform](https://img.shields.io/badge/Platform-Android-green.svg)](https://developer.android.com/)
-[![Language](https://img.shields.io/badge/Language-Java-orange.svg)](https://docs.oracle.com/en/java/)
-[![Database](https://img.shields.io/badge/Database-Firebase_Realtime_DB-FFCA28.svg)](https://firebase.google.com/)
+An informative Android application acting as a digital encyclopedia for the province and city of Huelva, Spain.
 
 HuelvaPedia is designed to showcase the cultural, historical, and geographical richness of Huelva. Users can explore various categories such as local gastronomy, historical landmarks, points of interest, and more. 
 
